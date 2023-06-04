@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 
+// useParams: To access params in the url
+
 export default function Profile() {
   const url = import.meta.env.VITE_PUBLIC_FOLDER;
   const [user, setUser] = useState({});

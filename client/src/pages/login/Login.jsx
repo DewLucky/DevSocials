@@ -1,12 +1,13 @@
 import { useRef } from "react";
 import "./login.css";
-import { Email } from "@mui/icons-material";
+// import { Email } from "@mui/icons-material";
 
 export default function Login() {
   const email = useRef();
   const password = useRef();
-  function handleSubmit(e) {
-    e.preventDefault();
+
+  function handleSubmit(event) {
+    event.preventDefault();
     console.log(email.current.value);
   }
 
