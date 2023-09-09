@@ -11,7 +11,18 @@ const postRoute = require('./routes/posts')
 dotenv.config()
 const app = express()
 
-mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{console.log("db connected")}).catch((err)=> console.log(err));
+const PORT = process.env.PORT || 8800;
+// .then(()=>{console.log("db connected")}).catch((err)=> console.log(err));
+
+const connectDB = async () => {
+    try {
+      const conn = await mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+      console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+      console.log(error);
+      process.exit(1);
+    }
+  }
 
 // middlewares
 app.use(express.json());
@@ -28,6 +39,8 @@ app.use('/api/posts', postRoute);
 // In production level, we create our routes in a different 
 // directory 
 
-app.listen(8800, ()=>{
-    console.log("backend server is running!")
+connectDB().then(() => {
+    app.listen(PORT, ()=>{
+        console.log("backend server is running!")
+    })
 })
